@@ -1,207 +1,193 @@
 # Crypto Market Trend Analysis using Moving Average Models
 
 **Author:** Pei Zhang  
-**Last updated:** 2025-11-28  
+**Last updated:** 2025-11-29  
 
-A Python-based quantitative study of short-term vs mid-term price momentum in major crypto assets using 20-day and 60-day moving averages, with VOO as a traditional equity benchmark.
-
----
-
-## 1. Research Objective
-
-The goal of this project is to:
-
-- Compare **short-term (MA20)** and **mid-term (MA60)** price trends of BTC, ETH and ADA  
-- Contrast crypto momentum behavior with a **traditional equity benchmark (VOO)**  
-- Build intuition for **trend strength, reversals and volatility regimes** in crypto markets
-
-This project is an early step in my transition toward **FinTech & Crypto Quant Research**.
+A Python-based quantitative study on price momentum behavior in major crypto assets using MA20/MA60 crossover signals, benchmarked against VOO to evaluate structural volatility differences vs traditional equities.
 
 ---
 
-## 2. Assets & Data
+## 1️⃣ Research Objective
 
-**Assets analyzed**
+This project analyzes:
 
-- **BTC** – Bitcoin  
-- **ETH** – Ethereum  
-- **ADA** – Cardano  
-- **VOO** – Vanguard S&P 500 ETF (benchmark)
+- **Short-term (MA20)** vs **mid-term (MA60)** trend strength
+- **Momentum persistence** vs **momentum reversals**
+- Differences in behavior between **crypto** & **equity** assets
 
-**Data source**
-
-- Historical daily prices downloaded via **`yfinance`**  
-- Close prices used to compute moving averages  
-- Time window: recent months (rolling window, updatable at any time)
+It is part of my journey into **FinTech & Crypto Quant Research**  
+with focus on **market momentum, volatility regimes and strategy signals**.
 
 ---
 
-## 3. Methodology
+## 2️⃣ Assets & Data
 
-For each asset, I compute:
+| Asset | Type | Role in Study |
+|---|---|---|
+| BTC | Digital asset | Liquidity & trend anchor |
+| ETH | Smart contract ecosystem | High narrative sensitivity |
+| ADA | High-beta altcoin | Volatility exposure indicator |
+| VOO | Equity index ETF | Traditional benchmark |
 
-- **20-day moving average (MA20)** → captures **short-term momentum**
-- **60-day moving average (MA60)** → captures **mid-term trend**
+**Source:** Yahoo Finance via `yfinance`  
+**Granularity:** Daily close prices  
+**Period:** Latest 180 days (rolling)
 
-Basic idea:
+---
 
-- **MA20 > MA60** → bullish momentum, short-term trend stronger than mid-term  
-- **MA20 < MA60** → bearish momentum, short-term weakness relative to mid-term  
-- **Crossovers** between MA20 and MA60 signal potential **trend shifts / momentum reversals**
+## 3️⃣ Methodology (MA20 vs MA60)
 
-Mathematically (for closing price \(P_t\)):
+- **MA20 > MA60** → strong bullish momentum
+- **MA20 < MA60** → bearish momentum dominance
+- **Crossovers** often mark **trend shifts**
+
+Quant formula:
 
 \[
-MA_{20}(t) = \frac{1}{20}\sum_{i=0}^{19} P_{t-i}, \quad 
-MA_{60}(t) = \frac{1}{60}\sum_{i=0}^{59} P_{t-i}
+MA_{n}(t) = \frac{1}{n}\sum_{i=0}^{n-1} P_{t-i}
 \]
 
-All calculations and plots are implemented in the Jupyter Notebook:
-`crypto_ma_analysis.ipynb`.
+Used to assess:
+
+✔ trend reliability  
+✔ ease of reversals  
+✔ speculation intensity  
 
 ---
 
-## 4. Price Momentum Analysis
+## 4️⃣ Price Momentum Analysis & Insights
 
-### 4.1 BTC — Bitcoin
+---
 
-![BTC Moving Averages](BTC.png)
+### 🔹 BTC — Most stable trend structure
+
+![BTC](BTC.png)
 
 **Observations**
-
-- BTC shows relatively **clean MA20–MA60 crossovers** with less noisy whipsaws.  
-- In uptrend phases, MA20 stays consistently above MA60 with visible distance.  
-- During corrections, MA20 quickly reacts and converges toward MA60.
+- Clearer MA20/MA60 separation in uptrends
+- Fewer false crossovers
+- Converges smoothly in corrections
 
 **Interpretation**
-
-- BTC exhibits the **most stable momentum structure** among the three crypto assets.  
-- Trend signals are comparatively more reliable, reflecting **higher liquidity** and  
-  stronger participation from long-term / institutional holders.  
-- BTC still acts as a **liquidity and sentiment anchor** within the crypto market.
+- **Highest liquidity** and **institutional presence**
+- More reliable signal structure  
+→ BTC remains the **sentiment anchor** for crypto
 
 ---
 
-### 4.2 ETH — Ethereum
+### 🔹 ETH — Narrative-driven volatility
 
-![ETH Moving Averages](ETH.png)
+![ETH](ETH.png)
 
 **Observations**
-
-- ETH’s MA20 crosses MA60 **more frequently** than BTC.  
-- Short-term rallies often fade quickly, leading to fast reversals around the MA60 line.  
-- Distance between MA20 and MA60 tends to be narrower and less persistent.
+- More frequent crossovers
+- Rallies fade quickly near MA60
+- Narrower momentum spreads vs BTC
 
 **Interpretation**
-
-- ETH shows **less stable mid-term momentum** compared with BTC.  
-- Price action is more sensitive to **narrative shifts and speculative flows**  
-  (DeFi, L2, staking themes, etc.).  
-- Momentum signals are usable but require **tighter risk management**.
+- Momentum sensitive to **ecosystem narratives**
+- Requires **tighter risk control**
+- Trend reliability below BTC
 
 ---
 
-### 4.3 ADA — Cardano
+### 🔹 ADA — High noise, weak trend persistence
 
-![ADA Moving Averages](ADA.png)
+![ADA](ADA.png)
 
 **Observations**
-
-- ADA displays the **noisiest crossover pattern** among the three.  
-- MA20 flips above/below MA60 frequently, with many short-lived moves.  
-- Trend phases are shorter and reversals more abrupt.
+- Most noisy momentum behavior
+- Short trend cycles + abrupt reversals
+- Frequent whipsaws
 
 **Interpretation**
-
-- ADA has the **weakest momentum persistence** and **highest volatility exposure**.  
-- Momentum behavior suggests stronger **retail-driven trading** and  
-  a higher share of speculative capital.  
-- Any MA-based strategy on ADA must assume **larger drawdowns** and **lower signal reliability**.
+- **Speculative & retail-heavy**
+- Signal reliability very low  
+→ Higher beta, higher drawdown risk
 
 ---
 
-### 4.4 VOO — Traditional Equity Benchmark
+### 🔹 VOO — Smooth institutional trend baseline
 
-![VOO Moving Averages](VOO.png)
+![VOO](VOO.png)
 
 **Observations**
-
-- VOO’s MA20 and MA60 move **smoothly**, with much fewer crossovers.  
-- Trend shifts are slower and more gradual compared to crypto assets.  
-- Distance between MA20 and MA60 widens and narrows in a more orderly way.
+- Much slower trend shifts
+- Very few crossovers
+- Lower volatility regime
 
 **Interpretation**
-
-- VOO reflects a market dominated by **institutional capital and long-only flows**.  
-- Momentum structure is **more stable and predictable**, with lower emotional trading.  
-- Using VOO as a benchmark highlights how **crypto trades in a higher-volatility,  
-  higher-reversal regime**.
+- Reflects **fundamental-driven capital flows**
+- Excellent baseline for contrast  
+→ Shows crypto momentum is **amplified & unstable**
 
 ---
 
-## 5. Key Insights (so far)
+## 5️⃣ Key Insights (so far)
 
-1. **Crypto vs Equity Momentum**  
-   - BTC, ETH and ADA all exhibit **stronger and more frequent momentum reversals**  
-     than VOO, reflecting elevated **speculative sensitivity** and looser anchoring  
-     to fundamental cash flows.
+| Insight | Meaning |
+|---|---|
+| Crypto reverses momentum more often | Higher emotional trading |
+| BTC > ETH > ADA (trend reliability) | Liquidity sensitivity hierarchy |
+| BTC leads market direction | Macro structural dominance |
 
-2. **Momentum Stability Ranking**  
-   - In terms of mid-term momentum stability, a rough ordering is:  
-     **BTC > ETH > ADA**.  
-   - BTC behaves closest to a “macro asset”, while ADA behaves more like a  
-     high-beta speculative token.
-
-3. **Role of BTC in Crypto Structure**  
-   - BTC maintains the **cleanest MA structure** and tends to lead trend direction.  
-   - This supports the view that BTC acts as a **liquidity and sentiment anchor**  
-     for the broader crypto market.
-
-These are **work-in-progress observations**, not investment advice.
+⚠️ Not investment advice — Research purpose only
 
 ---
 
-## 6. Limitations
+## 6️⃣ Current Limitations
 
-- Analysis is based on **moving averages only** (trend-following indicator).  
-- No transaction costs, slippage or position sizing are included yet.  
-- Results depend on the **chosen time window** and **lookback periods (20 / 60)**.  
-- No full backtest or risk-adjusted performance metrics are implemented (yet).
+- Only MA indicator → no multi-factor confirmation
+- No Sharpe / drawdown evaluation yet
+- No signal backtesting yet
+- Results vary by time window
 
-These limitations will be addressed in future iterations (see Roadmap).
-
----
-
-## 7. Future Work & Roadmap
-
-Planned extensions of this project:
-
-1. **Volatility Analysis**  
-   - Compute and visualize **rolling volatility** for BTC / ETH / ADA / VOO.  
-   - Compare crypto volatility regimes vs equity volatility.
-
-2. **Risk-Adjusted Performance (Sharpe Ratio)**  
-   - Estimate **Sharpe ratios** over rolling windows.  
-   - Evaluate whether higher returns (if any) compensate for the higher volatility in crypto.
-
-3. **BTC Beta & Cross-Asset Correlation**  
-   - Analyze how BTC co-moves with VOO and other benchmarks.  
-   - Estimate **beta** and correlation over time to understand structural linkages.
-
-4. **Moving-Average Trading Signal Backtest**  
-   - Implement simple MA20–MA60 crossover strategies.  
-   - Evaluate performance vs buy-and-hold, including drawdowns and hit ratios.
-
-As I continue my journey toward **FinTech & Crypto Quant**, this repository will grow with more indicators, backtests and cross-asset analysis.
+📌 These will be solved in future updates.
 
 ---
 
-## 8. How to Run the Notebook
+## 7️⃣ Future Work & Roadmap 🚀
 
-### Option A — Local environment
+| Phase | Focus | Why it matters |
+|---|---|---|
+| ① Volatility Analysis | Rolling std | Risk comparison |
+| ② Sharpe Ratio | Risk-adjusted returns | Performance evaluation |
+| ③ BTC-Beta & Correlation | Cross-asset structure | Institutionalization trends |
+| ④ Strategy Backtest | Crossover vs HODL | Practical feasibility |
 
-1. Clone the repository:
+➡ These upgrades will transform this into a **quant strategy research project**
 
-   ```bash
-   git clone https://github.com/peizhang-felix/crypto-ma-analysis.git
-   cd crypto-ma-analysis
+---
+
+## 8️⃣ Run the Notebook
+
+### A — Local environment
+
+```bash
+git clone https://github.com/peizhang-felix/crypto-ma-analysis.git
+cd crypto-ma-analysis
+pip install yfinance pandas matplotlib numpy
+jupyter notebook
+Run → crypto_ma_analysis.ipynb
+
+B — Run online (Google Colab)
+
+🔗 https://github.com/peizhang-felix/crypto-ma-analysis/blob/main/crypto_ma_analysis.ipynb
+
+⸻
+
+9️⃣ Tech Stack
+	•	Python · pandas · numpy · matplotlib · yfinance
+	•	Quant Analysis · Time Series Visualization
+	•	Market Structure & Momentum Behavior Research
+
+⸻
+
+🔟 About the Author
+
+Pei Zhang
+Aspiring FinTech & Crypto Data Analyst
+Focus on algorithmic market analysis & quant strategy foundations
+
+More projects coming soon
+Collaboration is welcome!
